@@ -1,6 +1,8 @@
-"ontology/hedis_ontology*.json" 
-"ontology/enrichment_engine.py" 
-"config.yaml" 
-"rsa_key.p8" 
-"rsa_key.pub" 
-"output/" 
+ontology/hedis_ontology*.json 
+ontology/enrichment_engine.py 
+config.yaml 
+rsa_key.p8 
+rsa_key.pub 
+output/ 
+__pycache__/ 
+*.pyc 
