@@ -1,0 +1,19 @@
+{
+  "generated_at": "2026-07-04T03:14:29.931858+00:00",
+  "domain": "claims",
+  "source_view": "CLAIMS_SEMANTIC",
+  "summary": {
+    "total_gaps": 0,
+    "high_severity": 0,
+    "medium_severity": 0,
+    "low_severity": 0
+  },
+  "gaps": {
+    "high": [],
+    "medium": [],
+    "low": []
+  },
+  "recommendations": [
+    "\u2705 All semantic view terms mapped to ontology. Semantic model is ready for Fabric deployment."
+  ]
+}

@@ -1,0 +1,391 @@
+{
+  "metadata": {
+    "extracted_at": "2026-07-04T03:04:14.740947+00:00",
+    "source_type": "snowflake_semantic_view_ddl",
+    "source_database": "HEALTHCARE_DEMO",
+    "source_schema": "CLAIMS",
+    "source_view_name": "CLAIMS_SEMANTIC",
+    "semantic_view_hash": "8159d89fdf24ba31e613f1a6020560f272f7872b64f12508abf5a2b9e0ab8321",
+    "schema_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "extractor_version": "1.0.0",
+    "client_id": "healthcare-demo",
+    "domain": "claims"
+  },
+  "entities": [
+    {
+      "name": "CLAIMS",
+      "physical_database": "HEALTHCARE_DEMO",
+      "physical_schema": "CLAIMS",
+      "physical_table": "FACT_CLAIMS",
+      "description": "Adjudicated medical claim lines",
+      "synonyms": [],
+      "dimensions": [
+        {
+          "name": "CLAIM_ID",
+          "physical_column": "CLAIM_ID",
+          "data_type": "VARCHAR",
+          "description": null,
+          "synonyms": [],
+          "is_primary_key": true,
+          "display_folder": "Claims Keys"
+        }
+      ],
+      "time_dimensions": [],
+      "measures": [
+        {
+          "name": "CLAIM_ID",
+          "expression": "CLAIM_ID",
+          "aggregation": "NONE",
+          "physical_column": "CLAIM_ID",
+          "data_type": "VARCHAR",
+          "description": null,
+          "synonyms": [],
+          "format_string": null,
+          "display_folder": "Facts",
+          "is_hidden": false
+        },
+        {
+          "name": "BILLED_AMOUNT",
+          "expression": "BILLED",
+          "aggregation": "NONE",
+          "physical_column": "BILLED",
+          "data_type": "VARCHAR",
+          "description": null,
+          "synonyms": [],
+          "format_string": null,
+          "display_folder": "Facts",
+          "is_hidden": false
+        },
+        {
+          "name": "ALLOWED_AMOUNT",
+          "expression": "ALLOWED",
+          "aggregation": "NONE",
+          "physical_column": "ALLOWED",
+          "data_type": "VARCHAR",
+          "description": null,
+          "synonyms": [],
+          "format_string": null,
+          "display_folder": "Facts",
+          "is_hidden": false
+        },
+        {
+          "name": "PAID_AMOUNT",
+          "expression": "PAID",
+          "aggregation": "NONE",
+          "physical_column": "PAID",
+          "data_type": "VARCHAR",
+          "description": null,
+          "synonyms": [],
+          "format_string": null,
+          "display_folder": "Facts",
+          "is_hidden": false
+        },
+        {
+          "name": "MEMBER_MONTHS",
+          "expression": "MM",
+          "aggregation": "NONE",
+          "physical_column": "MM",
+          "data_type": "VARCHAR",
+          "description": null,
+          "synonyms": [],
+          "format_string": null,
+          "display_folder": "Facts",
+          "is_hidden": false
+        },
+        {
+          "name": "TOTAL_PAID",
+          "expression": "SUM(claims.paid)",
+          "aggregation": "SUM",
+          "physical_column": "paid",
+          "data_type": "NUMBER",
+          "description": "Total net paid amount across claim lines",
+          "synonyms": [],
+          "format_string": "$#,##0.00",
+          "display_folder": "Metrics",
+          "is_hidden": false
+        },
+        {
+          "name": "TOTAL_BILLED",
+          "expression": "SUM(claims.billed)",
+          "aggregation": "SUM",
+          "physical_column": "billed",
+          "data_type": "NUMBER",
+          "description": "",
+          "synonyms": [],
+          "format_string": "$#,##0.00",
+          "display_folder": "Metrics",
+          "is_hidden": false
+        },
+        {
+          "name": "TOTAL_ALLOWED",
+          "expression": "SUM(claims.allowed)",
+          "aggregation": "SUM",
+          "physical_column": "allowed",
+          "data_type": "NUMBER",
+          "description": "",
+          "synonyms": [],
+          "format_string": "$#,##0.00",
+          "display_folder": "Metrics",
+          "is_hidden": false
+        },
+        {
+          "name": "CLAIM_COUNT",
+          "expression": "COUNT(claims.claim_id)",
+          "aggregation": "COUNT",
+          "physical_column": "claim_id",
+          "data_type": "NUMBER",
+          "description": "",
+          "synonyms": [],
+          "format_string": "#,##0",
+          "display_folder": "Metrics",
+          "is_hidden": false
+        },
+        {
+          "name": "PMPM",
+          "expression": "SUM(claims.paid) / NULLIF(SUM(claims.mm),0)",
+          "aggregation": "SUM",
+          "physical_column": "paid",
+          "data_type": "NUMBER",
+          "description": "Per member per month paid cost",
+          "synonyms": [],
+          "format_string": "$#,##0.00",
+          "display_folder": "Metrics",
+          "is_hidden": false
+        },
+        {
+          "name": "DENIAL_RATE",
+          "expression": "SUM(claims.billed - claims.allowed) / NULLIF(SUM(claims.billed),0)",
+          "aggregation": "SUM",
+          "physical_column": "billed",
+          "data_type": "NUMBER",
+          "description": "Share of billed not allowed",
+          "synonyms": [],
+          "format_string": "0.00%",
+          "display_folder": "Metrics",
+          "is_hidden": false
+        }
+      ],
+      "physical_columns": []
+    },
+    {
+      "name": "MEMBERS",
+      "physical_database": "HEALTHCARE_DEMO",
+      "physical_schema": "CLAIMS",
+      "physical_table": "DIM_MEMBER",
+      "description": "Healthcare claims semantic model for managed care analytics",
+      "synonyms": [],
+      "dimensions": [
+        {
+          "name": "MEMBER_ID",
+          "physical_column": "MEMBER_ID",
+          "data_type": "VARCHAR",
+          "description": null,
+          "synonyms": [],
+          "is_primary_key": true,
+          "display_folder": "Members Keys"
+        },
+        {
+          "name": "MEMBER_STATE",
+          "physical_column": "STATE",
+          "data_type": "VARCHAR",
+          "description": null,
+          "synonyms": [],
+          "is_primary_key": false,
+          "display_folder": "Members Attributes"
+        },
+        {
+          "name": "LINE_OF_BUSINESS",
+          "physical_column": "LOB",
+          "data_type": "VARCHAR",
+          "description": null,
+          "synonyms": [],
+          "is_primary_key": false,
+          "display_folder": "Members Attributes"
+        },
+        {
+          "name": "MEMBER_AGE",
+          "physical_column": "AGE",
+          "data_type": "VARCHAR",
+          "description": null,
+          "synonyms": [],
+          "is_primary_key": false,
+          "display_folder": "Members Attributes"
+        }
+      ],
+      "time_dimensions": [],
+      "measures": [],
+      "physical_columns": []
+    },
+    {
+      "name": "PROVIDERS",
+      "physical_database": "HEALTHCARE_DEMO",
+      "physical_schema": "CLAIMS",
+      "physical_table": "DIM_PROVIDER",
+      "description": "Healthcare claims semantic model for managed care analytics",
+      "synonyms": [],
+      "dimensions": [
+        {
+          "name": "PROVIDER_ID",
+          "physical_column": "PROVIDER_ID",
+          "data_type": "VARCHAR",
+          "description": null,
+          "synonyms": [],
+          "is_primary_key": true,
+          "display_folder": "Providers Keys"
+        },
+        {
+          "name": "SPECIALTY",
+          "physical_column": "SPECIALTY",
+          "data_type": "VARCHAR",
+          "description": null,
+          "synonyms": [],
+          "is_primary_key": false,
+          "display_folder": "Providers Attributes"
+        },
+        {
+          "name": "NETWORK_STATUS",
+          "physical_column": "NETWORK",
+          "data_type": "VARCHAR",
+          "description": null,
+          "synonyms": [],
+          "is_primary_key": false,
+          "display_folder": "Providers Attributes"
+        }
+      ],
+      "time_dimensions": [],
+      "measures": [],
+      "physical_columns": []
+    },
+    {
+      "name": "DRG",
+      "physical_database": "HEALTHCARE_DEMO",
+      "physical_schema": "CLAIMS",
+      "physical_table": "DIM_DRG",
+      "description": "Healthcare claims semantic model for managed care analytics",
+      "synonyms": [],
+      "dimensions": [
+        {
+          "name": "DRG_CODE",
+          "physical_column": "DRG_CODE",
+          "data_type": "VARCHAR",
+          "description": null,
+          "synonyms": [],
+          "is_primary_key": true,
+          "display_folder": "Drg Keys"
+        },
+        {
+          "name": "DRG_CODE",
+          "physical_column": "CODE",
+          "data_type": "VARCHAR",
+          "description": null,
+          "synonyms": [],
+          "is_primary_key": false,
+          "display_folder": "Drg Attributes"
+        },
+        {
+          "name": "DRG_DESCRIPTION",
+          "physical_column": "DESCRIPTION",
+          "data_type": "VARCHAR",
+          "description": null,
+          "synonyms": [],
+          "is_primary_key": false,
+          "display_folder": "Drg Attributes"
+        },
+        {
+          "name": "MAJOR_CATEGORY",
+          "physical_column": "CATEGORY",
+          "data_type": "VARCHAR",
+          "description": null,
+          "synonyms": [],
+          "is_primary_key": false,
+          "display_folder": "Drg Attributes"
+        }
+      ],
+      "time_dimensions": [],
+      "measures": [],
+      "physical_columns": []
+    },
+    {
+      "name": "DATES",
+      "physical_database": "HEALTHCARE_DEMO",
+      "physical_schema": "CLAIMS",
+      "physical_table": "DIM_DATE",
+      "description": "Healthcare claims semantic model for managed care analytics",
+      "synonyms": [],
+      "dimensions": [
+        {
+          "name": "DATE_KEY",
+          "physical_column": "DATE_KEY",
+          "data_type": "VARCHAR",
+          "description": null,
+          "synonyms": [],
+          "is_primary_key": true,
+          "display_folder": "Dates Keys"
+        }
+      ],
+      "time_dimensions": [
+        {
+          "name": "CAL_YEAR",
+          "physical_column": "YEAR",
+          "data_type": "DATE",
+          "description": null,
+          "granularity": "YEAR"
+        },
+        {
+          "name": "CAL_QUARTER",
+          "physical_column": "QUARTER",
+          "data_type": "DATE",
+          "description": null,
+          "granularity": "QUARTER"
+        },
+        {
+          "name": "CAL_MONTH",
+          "physical_column": "MONTH",
+          "data_type": "DATE",
+          "description": null,
+          "granularity": "MONTH"
+        }
+      ],
+      "measures": [],
+      "physical_columns": []
+    }
+  ],
+  "relationships": [
+    {
+      "name": "CLAIMS_TO_DATE",
+      "from_entity": "CLAIMS",
+      "from_column": "DATE_KEY",
+      "to_entity": "DATES",
+      "to_column": "DATE_KEY",
+      "join_type": "MANY_TO_ONE",
+      "is_active": true
+    },
+    {
+      "name": "CLAIMS_TO_DRG",
+      "from_entity": "CLAIMS",
+      "from_column": "DRG_CODE",
+      "to_entity": "DRG",
+      "to_column": "DRG_CODE",
+      "join_type": "MANY_TO_ONE",
+      "is_active": true
+    },
+    {
+      "name": "CLAIMS_TO_MEMBER",
+      "from_entity": "CLAIMS",
+      "from_column": "MEMBER_ID",
+      "to_entity": "MEMBERS",
+      "to_column": "MEMBER_ID",
+      "join_type": "MANY_TO_ONE",
+      "is_active": true
+    },
+    {
+      "name": "CLAIMS_TO_PROVIDER",
+      "from_entity": "CLAIMS",
+      "from_column": "PROVIDER_ID",
+      "to_entity": "PROVIDERS",
+      "to_column": "PROVIDER_ID",
+      "join_type": "MANY_TO_ONE",
+      "is_active": true
+    }
+  ]
+}

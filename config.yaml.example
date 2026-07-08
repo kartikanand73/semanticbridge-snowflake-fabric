@@ -1,0 +1,59 @@
+# ─────────────────────────────────────────────
+# SemanticBridge Configuration
+# Copy to config.yaml and fill in your values
+# ─────────────────────────────────────────────
+
+client_id: "enterprise-healthcare-payer"   # Used in Blob path + manifest
+
+# ─── Snowflake Connection ─────────────────────
+snowflake:
+  account: "your-account.snowflakecomputing.com"
+  user: "your-username"
+  password: "your-password"               # Or use private_key_path below
+  # private_key_path: "/path/to/rsa_key.p8"
+  role: "SYSADMIN"
+  warehouse: "COMPUTE_WH"
+  database: "HEALTHCARE_DB"              # Database containing semantic views
+
+  # Optional: restrict to specific schemas (domains)
+  # If omitted, extracts all semantic views in the database
+  schemas:
+    - "CLAIMS"
+    - "CLINICAL"
+    - "MEMBER"
+    - "PROVIDER"
+
+# ─── Output Configuration ─────────────────────
+output:
+  local_path: "./output"                  # Always written locally for dev/demo
+
+  # Azure Blob (optional — set use_blob: true for production)
+  use_blob: false
+  blob_connection_string: "DefaultEndpointsProtocol=https;AccountName=...;AccountKey=...;EndpointSuffix=core.windows.net"
+  blob_container: "semantic-bridge"
+
+# ─── Ontology Configuration ───────────────────
+ontology:
+  paths:
+    - "./ontology/hedis_ontology.json"
+    # - "./ontology/fhir_r4_ontology.json"     # Add when available
+    # - "./ontology/custom_ontology.json"       # Client-specific terms
+
+  fuzzy_match_threshold: 0.75            # 0.0-1.0, lower = more aggressive matching
+
+# ─── Fabric / Power BI Deployment ─────────────
+fabric:
+  workspace_id: "your-fabric-workspace-id"
+  lakehouse_id: "your-lakehouse-id"
+  semantic_model_name: "SemanticBridge_{domain}"   # {domain} replaced per view
+
+  # Power BI REST API (for deploy step)
+  tenant_id: "your-azure-tenant-id"
+  client_id: "your-service-principal-client-id"
+  client_secret: "your-service-principal-secret"
+
+# ─── Drift Detection ──────────────────────────
+drift:
+  schedule_minutes: 60                   # How often to check for drift
+  auto_remediate_additive: true          # Auto-redeploy on additive schema changes
+  alert_on_breaking_change: true         # Hold + alert on destructive changes

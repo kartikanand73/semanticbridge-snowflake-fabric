@@ -1,0 +1,25 @@
+{
+  "client_id": "healthcare-demo",
+  "domain": "claims",
+  "snowflake_view_name": "CLAIMS_SEMANTIC",
+  "snowflake_schema": "CLAIMS",
+  "snowflake_database": "HEALTHCARE_DEMO",
+  "last_extraction": "2026-07-04T03:04:14.749728+00:00",
+  "semantic_view_hash": "8159d89fdf24ba31e613f1a6020560f272f7872b64f12508abf5a2b9e0ab8321",
+  "schema_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "entity_count": 5,
+  "relationship_count": 4,
+  "gap_count": 1,
+  "drift_status": "gaps_detected",
+  "fabric_semantic_model_id": null,
+  "last_deploy": null,
+  "health_check": {
+    "last_run": null,
+    "status": "pending"
+  },
+  "ontology_versions": {
+    "hedis": null,
+    "fhir": null,
+    "custom": null
+  }
+}

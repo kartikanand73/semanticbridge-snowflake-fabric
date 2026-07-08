@@ -1,0 +1,43 @@
+create or replace semantic view CLAIMS_SEMANTIC
+	tables (
+		CLAIMS as HEALTHCARE_DEMO.CLAIMS.FACT_CLAIMS primary key (CLAIM_ID) comment='Adjudicated medical claim lines',
+		MEMBERS as HEALTHCARE_DEMO.CLAIMS.DIM_MEMBER primary key (MEMBER_ID),
+		PROVIDERS as HEALTHCARE_DEMO.CLAIMS.DIM_PROVIDER primary key (PROVIDER_ID),
+		DRG as HEALTHCARE_DEMO.CLAIMS.DIM_DRG primary key (DRG_CODE),
+		DATES as HEALTHCARE_DEMO.CLAIMS.DIM_DATE primary key (DATE_KEY)
+	)
+	relationships (
+		CLAIMS_TO_DATE as CLAIMS(DATE_KEY) references DATES(DATE_KEY),
+		CLAIMS_TO_DRG as CLAIMS(DRG_CODE) references DRG(DRG_CODE),
+		CLAIMS_TO_MEMBER as CLAIMS(MEMBER_ID) references MEMBERS(MEMBER_ID),
+		CLAIMS_TO_PROVIDER as CLAIMS(PROVIDER_ID) references PROVIDERS(PROVIDER_ID)
+	)
+	facts (
+		CLAIMS.CLAIM_ID as CLAIM_ID,
+		CLAIMS.BILLED as BILLED_AMOUNT,
+		CLAIMS.ALLOWED as ALLOWED_AMOUNT,
+		CLAIMS.PAID as PAID_AMOUNT,
+		CLAIMS.MM as MEMBER_MONTHS
+	)
+	dimensions (
+		MEMBERS.STATE as MEMBER_STATE,
+		MEMBERS.LOB as LINE_OF_BUSINESS,
+		MEMBERS.AGE as MEMBER_AGE,
+		PROVIDERS.SPECIALTY as SPECIALTY,
+		PROVIDERS.NETWORK as NETWORK_STATUS,
+		DRG.CODE as DRG_CODE,
+		DRG.DESCRIPTION as DRG_DESCRIPTION,
+		DRG.CATEGORY as MAJOR_CATEGORY,
+		DATES.YEAR as CAL_YEAR,
+		DATES.QUARTER as CAL_QUARTER,
+		DATES.MONTH as CAL_MONTH
+	)
+	metrics (
+		CLAIMS.TOTAL_PAID as SUM(claims.paid) comment='Total net paid amount across claim lines',
+		CLAIMS.TOTAL_BILLED as SUM(claims.billed),
+		CLAIMS.TOTAL_ALLOWED as SUM(claims.allowed),
+		CLAIMS.CLAIM_COUNT as COUNT(claims.claim_id),
+		CLAIMS.PMPM as SUM(claims.paid) / NULLIF(SUM(claims.mm),0) comment='Per member per month paid cost',
+		CLAIMS.DENIAL_RATE as SUM(claims.billed - claims.allowed) / NULLIF(SUM(claims.billed),0) comment='Share of billed not allowed'
+	)
+	comment='Healthcare claims semantic model for managed care analytics';

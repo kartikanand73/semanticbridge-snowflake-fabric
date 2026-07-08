@@ -1,0 +1,354 @@
+{
+  "ontology_name": "HEDIS",
+  "version": "MY2026",
+  "description": "Healthcare Effectiveness Data and Information Set - Measure Specifications",
+  "source": "National Committee for Quality Assurance (NCQA)",
+  "term_graph": {
+
+    "measures": [
+      {
+        "canonical_name": "net_paid_amount",
+        "display_name": "Net Paid Amount",
+        "definition": "Total amount paid by the health plan after adjudication, net of member cost-sharing, coordination of benefits, and recoveries.",
+        "synonyms": [
+          "paid amount", "payment", "reimbursement", "net payment",
+          "plan paid", "allowed amount net", "claim payment", "net paid",
+          "total_paid", "total paid", "paid_amount", "total paid amount",
+          "net paid amount", "plan payment", "claim paid"
+        ],
+        "format_string": "$#,##0.00",
+        "display_folder": "Financial Measures",
+        "fhir_resource": "Claim.payment.amount",
+        "hedis_domain": "Utilization & Risk Adjusted Utilization"
+      },
+      {
+        "canonical_name": "allowed_amount",
+        "display_name": "Allowed Amount",
+        "definition": "The maximum amount a health plan will pay for a covered healthcare service, including both the plan payment and member cost-sharing.",
+        "synonyms": [
+          "allowed", "contractual allowance", "negotiated rate",
+          "contracted amount", "plan allowance", "billed allowed",
+          "total_allowed", "total allowed", "allowed_amount",
+          "total allowed amount", "allowable amount", "plan allowed",
+          "total billed allowed"
+        ],
+        "format_string": "$#,##0.00",
+        "display_folder": "Financial Measures",
+        "fhir_resource": "Claim.item.adjudication.amount",
+        "hedis_domain": "Utilization & Risk Adjusted Utilization"
+      },
+      {
+        "canonical_name": "billed_amount",
+        "display_name": "Billed Amount",
+        "definition": "The total charges submitted by a provider to the health plan for healthcare services rendered.",
+        "synonyms": [
+          "billed", "charges", "submitted charges", "total charges",
+          "total_billed", "total billed", "billed_amount",
+          "total billed amount", "submitted amount", "gross billed",
+          "provider charges", "claim charges"
+        ],
+        "format_string": "$#,##0.00",
+        "display_folder": "Financial Measures",
+        "fhir_resource": "Claim.total.amount",
+        "hedis_domain": "Utilization & Risk Adjusted Utilization"
+      },
+      {
+        "canonical_name": "member_cost_share",
+        "display_name": "Member Cost Share",
+        "definition": "Amount paid by the member including deductible, copayment, and coinsurance.",
+        "synonyms": [
+          "member liability", "out of pocket", "patient responsibility",
+          "member payment", "deductible", "copay", "coinsurance",
+          "member out of pocket", "patient cost"
+        ],
+        "format_string": "$#,##0.00",
+        "display_folder": "Financial Measures",
+        "fhir_resource": "Coverage.costToBeneficiary",
+        "hedis_domain": "Utilization & Risk Adjusted Utilization"
+      },
+      {
+        "canonical_name": "claim_count",
+        "display_name": "Claim Count",
+        "definition": "Total number of distinct claims submitted for adjudication within a given period.",
+        "synonyms": [
+          "number of claims", "claims volume", "total claims",
+          "claim volume", "claims count", "claim submissions",
+          "claim_count", "count of claims", "claims", "number claims"
+        ],
+        "format_string": "#,##0",
+        "display_folder": "Utilization Measures",
+        "fhir_resource": "Claim",
+        "hedis_domain": "Utilization & Risk Adjusted Utilization"
+      },
+      {
+        "canonical_name": "member_count",
+        "display_name": "Member Count",
+        "definition": "Count of distinct health plan members with coverage during the measurement period.",
+        "synonyms": [
+          "enrollee count", "patient count", "beneficiary count",
+          "covered lives", "members", "enrollees", "patients",
+          "beneficiaries", "member months denominator",
+          "member_count", "total members", "lives"
+        ],
+        "format_string": "#,##0",
+        "display_folder": "Membership Measures",
+        "fhir_resource": "Coverage.beneficiary",
+        "hedis_domain": "Membership"
+      },
+      {
+        "canonical_name": "member_months",
+        "display_name": "Member Months",
+        "definition": "The sum of months of health plan enrollment across all members during a measurement period. Used as the denominator for PMPM calculations.",
+        "synonyms": [
+          "mm", "member months", "member_months", "enrollment months",
+          "covered months", "eligibility months", "months of coverage",
+          "member month", "total member months"
+        ],
+        "format_string": "#,##0",
+        "display_folder": "Membership Measures",
+        "fhir_resource": "Coverage.period",
+        "hedis_domain": "Membership"
+      },
+      {
+        "canonical_name": "pmpm",
+        "display_name": "Per Member Per Month (PMPM)",
+        "definition": "A standard healthcare cost metric calculated as total cost divided by total member months. Used to normalize costs across populations of different sizes.",
+        "synonyms": [
+          "per member per month", "cost per member", "pmpm cost",
+          "monthly cost per member", "member cost rate", "pmpm",
+          "per member cost", "cost pmpm", "monthly pmpm"
+        ],
+        "format_string": "$#,##0.00",
+        "display_folder": "Financial Measures",
+        "fhir_resource": null,
+        "hedis_domain": "Utilization & Risk Adjusted Utilization"
+      },
+      {
+        "canonical_name": "denial_rate",
+        "display_name": "Denial Rate",
+        "definition": "The percentage of billed charges that were not allowed by the health plan, representing the share of submitted claims or charges that were denied or disallowed.",
+        "synonyms": [
+          "denial rate", "denial_rate", "denied rate", "disallowance rate",
+          "claim denial rate", "denial percentage", "denied claims rate",
+          "disallowed rate", "not allowed rate", "disallowance percentage",
+          "billed vs allowed variance", "denial ratio"
+        ],
+        "format_string": "0.00%",
+        "display_folder": "Quality Measures",
+        "fhir_resource": "Claim.item.adjudication",
+        "hedis_domain": "Utilization & Risk Adjusted Utilization"
+      },
+      {
+        "canonical_name": "readmission_rate",
+        "display_name": "30-Day Readmission Rate",
+        "definition": "Percentage of inpatient admissions followed by an unplanned readmission within 30 days of discharge.",
+        "synonyms": [
+          "readmission", "hospital readmission", "30 day readmission",
+          "avoidable readmission", "plan all cause readmission", "pcr"
+        ],
+        "format_string": "0.00%",
+        "display_folder": "Quality Measures",
+        "fhir_resource": "Encounter",
+        "hedis_domain": "Effectiveness of Care"
+      },
+      {
+        "canonical_name": "emergency_visit_rate",
+        "display_name": "Emergency Department Visit Rate",
+        "definition": "Number of emergency department visits per 1,000 member months.",
+        "synonyms": [
+          "ed visits", "er visits", "emergency visits", "ed utilization",
+          "emergency department utilization", "ed rate", "aue ed"
+        ],
+        "format_string": "#,##0.00",
+        "display_folder": "Utilization Measures",
+        "fhir_resource": "Encounter.class=EMER",
+        "hedis_domain": "Utilization & Risk Adjusted Utilization"
+      },
+      {
+        "canonical_name": "inpatient_days",
+        "display_name": "Inpatient Days",
+        "definition": "Total number of inpatient days for acute hospital admissions.",
+        "synonyms": [
+          "hospital days", "acute days", "ip days", "bed days",
+          "length of stay total", "inpatient bed days"
+        ],
+        "format_string": "#,##0",
+        "display_folder": "Utilization Measures",
+        "fhir_resource": "Encounter.length",
+        "hedis_domain": "Utilization & Risk Adjusted Utilization"
+      },
+      {
+        "canonical_name": "generic_dispensing_rate",
+        "display_name": "Generic Dispensing Rate (GDR)",
+        "definition": "Percentage of prescription drug fills dispensed as generic drugs out of all fills where a generic was available.",
+        "synonyms": [
+          "gdr", "generic rate", "generic fill rate", "generic utilization",
+          "generic drug rate", "generic dispensing"
+        ],
+        "format_string": "0.00%",
+        "display_folder": "Quality Measures",
+        "fhir_resource": "MedicationDispense",
+        "hedis_domain": "Effectiveness of Care"
+      }
+    ],
+
+    "entities": [
+      {
+        "canonical_name": "member",
+        "display_name": "Member",
+        "definition": "An individual enrolled in a health plan, entitled to receive covered healthcare services.",
+        "synonyms": [
+          "patient", "enrollee", "beneficiary", "insured",
+          "subscriber", "covered life", "plan member",
+          "members", "member", "patients", "enrollees"
+        ],
+        "fhir_resource": "Patient",
+        "hedis_domain": "Membership"
+      },
+      {
+        "canonical_name": "provider",
+        "display_name": "Provider",
+        "definition": "A healthcare professional or organization that delivers healthcare services to health plan members.",
+        "synonyms": [
+          "physician", "doctor", "clinician", "practitioner",
+          "rendering provider", "billing provider", "attending",
+          "providers", "provider", "physicians", "doctors"
+        ],
+        "fhir_resource": "Practitioner",
+        "hedis_domain": "Supplemental Data"
+      },
+      {
+        "canonical_name": "claim",
+        "display_name": "Claim",
+        "definition": "A request for payment submitted to a health plan for healthcare services rendered to a covered member.",
+        "synonyms": [
+          "medical claim", "adjudicated claim", "remittance",
+          "eob", "explanation of benefits", "claim record",
+          "claims", "claim", "claim line"
+        ],
+        "fhir_resource": "Claim",
+        "hedis_domain": "Utilization & Risk Adjusted Utilization"
+      },
+      {
+        "canonical_name": "encounter",
+        "display_name": "Encounter",
+        "definition": "A healthcare interaction between a patient and a provider.",
+        "synonyms": [
+          "visit", "appointment", "admission", "service event",
+          "clinical encounter", "outpatient visit", "inpatient stay"
+        ],
+        "fhir_resource": "Encounter",
+        "hedis_domain": "Utilization & Risk Adjusted Utilization"
+      },
+      {
+        "canonical_name": "drg",
+        "display_name": "Diagnosis Related Group",
+        "definition": "A patient classification system that groups hospital cases with similar clinical characteristics and resource consumption for reimbursement purposes.",
+        "synonyms": [
+          "drg", "diagnosis related group", "ms-drg", "apr-drg",
+          "drg code", "drg category", "diagnosis group",
+          "drg classification", "hospital drg"
+        ],
+        "fhir_resource": "Claim.diagnosis",
+        "hedis_domain": "Utilization & Risk Adjusted Utilization"
+      },
+      {
+        "canonical_name": "dates",
+        "display_name": "Date Dimension",
+        "definition": "A calendar date hierarchy supporting time-based analysis including year, quarter, month, and day granularities.",
+        "synonyms": [
+          "dates", "date", "calendar", "time dimension", "date dimension",
+          "date hierarchy", "calendar dimension", "time", "period",
+          "fiscal calendar", "service date dimension"
+        ],
+        "fhir_resource": "Period",
+        "hedis_domain": "Supplemental Data"
+      }
+    ],
+
+    "dimensions": [
+      {
+        "canonical_name": "service_date",
+        "display_name": "Date of Service",
+        "definition": "The date on which a healthcare service was rendered to the member.",
+        "synonyms": [
+          "dos", "date of service", "service dt", "claim service date",
+          "from date", "through date", "treatment date"
+        ],
+        "fhir_resource": "Claim.billablePeriod.start"
+      },
+      {
+        "canonical_name": "diagnosis_code",
+        "display_name": "Diagnosis Code (ICD-10)",
+        "definition": "The ICD-10-CM code identifying the primary clinical condition for which services were rendered.",
+        "synonyms": [
+          "icd10", "icd-10", "dx code", "diagnosis", "primary dx",
+          "principal diagnosis", "admitting diagnosis"
+        ],
+        "fhir_resource": "Claim.diagnosis.diagnosisCodeableConcept"
+      },
+      {
+        "canonical_name": "procedure_code",
+        "display_name": "Procedure Code (CPT/HCPCS)",
+        "definition": "The CPT or HCPCS code identifying the healthcare service or procedure performed.",
+        "synonyms": [
+          "cpt", "hcpcs", "procedure", "service code", "revenue code",
+          "proc code", "billing code"
+        ],
+        "fhir_resource": "Claim.procedure.procedureCodeableConcept"
+      },
+      {
+        "canonical_name": "plan_id",
+        "display_name": "Health Plan",
+        "definition": "The specific insurance product or benefit plan under which a member is enrolled.",
+        "synonyms": [
+          "plan", "product", "benefit plan", "insurance plan",
+          "health plan", "coverage plan", "lob", "line of business",
+          "line_of_business", "lob code"
+        ],
+        "fhir_resource": "Coverage.class"
+      },
+      {
+        "canonical_name": "member_state",
+        "display_name": "Member State",
+        "definition": "The US state of residence for the health plan member.",
+        "synonyms": [
+          "state", "member state", "member_state", "state of residence",
+          "member residence", "geo state", "geographic state"
+        ],
+        "fhir_resource": "Patient.address.state"
+      },
+      {
+        "canonical_name": "member_age",
+        "display_name": "Member Age",
+        "definition": "The age of the health plan member at time of service.",
+        "synonyms": [
+          "age", "member age", "member_age", "patient age",
+          "age at service", "enrollee age"
+        ],
+        "fhir_resource": "Patient.birthDate"
+      },
+      {
+        "canonical_name": "provider_specialty",
+        "display_name": "Provider Specialty",
+        "definition": "The medical specialty of the rendering or billing provider.",
+        "synonyms": [
+          "specialty", "provider specialty", "physician specialty",
+          "medical specialty", "clinical specialty", "specialty code"
+        ],
+        "fhir_resource": "Practitioner.qualification"
+      },
+      {
+        "canonical_name": "network_status",
+        "display_name": "Network Status",
+        "definition": "Indicates whether the provider is in-network or out-of-network for the member's health plan.",
+        "synonyms": [
+          "network", "network status", "network_status", "in network",
+          "out of network", "in-network", "oon", "par status",
+          "participating", "non-participating"
+        ],
+        "fhir_resource": "Coverage.network"
+      }
+    ]
+  }
+}
